@@ -14,6 +14,5 @@
 Scgh.Issue = SC.Record.extend(
 /** @scope Scgh.Issue.prototype */ {
 
-  primaryKey: 'position'
 
-}) ;
+});

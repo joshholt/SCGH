@@ -13,6 +13,8 @@
 Scgh.projectsController = SC.ArrayController.create(
 /** @scope Scgh.projectsController.prototype */ {
 
+  allowsEmptySelection: false,
+
   contentDidChange: function() {
     var c = this.get('content');
     var l = c.get('length');

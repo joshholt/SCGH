@@ -1,2 +1,4 @@
 tmp/
 .sass-cache/
+.bundle/
+bin/

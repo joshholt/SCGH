@@ -14,16 +14,24 @@
 sc_require('models/issue');
 sc_require('models/project');
 
-Scgh.ISSUES_QUERY  = SC.Query.remote(Scgh.Issue, { 
-  url: "issues/list/suvajitgupta/Tasks/open",
-  container: 'issues',
-  modelType: Scgh.Issue
-});
+// Scgh.REMOTE_ISSUES_QUERY  = SC.Query.remote(Scgh.Issue, { 
+  // url: "issues/list/suvajitgupta/Tasks/open",
+  // container: 'issues'
+// });
 
-Scgh.PROJECTS_QUERY = SC.Query.remote(Scgh.Project, {
-  url: "repos/show/suvajitgupta",
-  container: 'repositories',
-  modelType: Scgh.Project
+// Scgh.REMOTE_PROJECTS_QUERY = SC.Query.remote(Scgh.Project, {
+  // url: "repos/show/suvajitgupta",
+  // container: 'repositories'
+// });
+
+// Scgh.ISSUES_QUERY = SC.Query.local(Scgh.Issue, {
+  // url: "/api/v2/json/issues/list/suvajitgupta/Tasks/open",
+  // container: 'issues'
+// });
+
+Scgh.PROJECTS_QUERY = SC.Query.local(Scgh.Project, {
+  url: "/api/v2/json/repos/show/joshholt",
+  container: 'repositories'
 });
 
 Scgh.REMOTE_SERVER = "http://codeismyart.no.de/_proxy/%@";
@@ -36,25 +44,42 @@ Scgh.GhDataSource = SC.DataSource.extend(
   // 
 
   fetch: function(store, query) {
+    var url = query.parameters ? query.parameters.url : query.url;
 
-    if (query.url) {
-      SC.$.getJSON(Scgh.REMOTE_SERVER.fmt(query.url), this.fetchComplete(store, query));
+    if (url) {
+      SC.Request.getUrl(url)
+        .header({'Accept': 'application/json'})
+        .json()
+        .notify(this, 'localFetchComplete', store, query)
+        .send();
       return YES;
     }
 
     return NO ; // return YES if you handled the query
   },
 
-  fetchComplete: function(store, query) {
-    return function(data) {
-      if (data) {
-        var storeKeys = store.loadRecords(query.modelType, data[query.container]);
-        store.loadQueryResults(query, storeKeys);
+  localFetchComplete: function(response, store, query) {
+    if (SC.ok(response)) {
+      var params = query.parameters ? query.parameters : query;
+      var body = response.get('body')[params.container], newBody;
+
+      if (body) {
+        body.map(function(r) { 
+          r.guid = SC.generateGuid(r) || SC.generateGuid(r,"%@".fmt(query.recordType.toString()));
+          if (params.guid) {
+            r.parentObject = params.guid;
+          }
+        });
+        store.loadRecords(query.recordType, body);
+        store.dataSourceDidFetchQuery(query);
       }
       else {
-        store.dataSourceDidErrorQuery(query, data);
+        store.dataSourceDidErrorQuery(query);
       }
-    };
+    }
+    else {
+      store.dataSourceDidErrorQuery(query);
+    }
   },
 
   // ..........................................................

@@ -21,7 +21,8 @@ Scgh.mainPage = SC.Page.design({
         contentView: SC.ListView.extend({
           contentBinding: 'Scgh.projectsController.arrangedObjects',
           selectionBinding: 'Scgh.projectsController.selection',
-          contentValueKey: 'name'
+          contentValueKey: 'name',
+          contentUnreadCountKey: 'open_issues'
         })
       })
 

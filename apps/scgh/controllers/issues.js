@@ -13,6 +13,8 @@
 Scgh.issuesController = SC.ArrayController.create(
 /** @scope Scgh.issuesController.prototype */ {
 
+  contentBinding: 'Scgh.projectController.remoteIssues',
+
   contentDidChange: function() {
     var c = this.get('content');
     var l = c.get('length');
