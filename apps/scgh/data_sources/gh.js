@@ -14,27 +14,10 @@
 sc_require('models/issue');
 sc_require('models/project');
 
-// Scgh.REMOTE_ISSUES_QUERY  = SC.Query.remote(Scgh.Issue, { 
-  // url: "issues/list/suvajitgupta/Tasks/open",
-  // container: 'issues'
-// });
-
-// Scgh.REMOTE_PROJECTS_QUERY = SC.Query.remote(Scgh.Project, {
-  // url: "repos/show/suvajitgupta",
-  // container: 'repositories'
-// });
-
-// Scgh.ISSUES_QUERY = SC.Query.local(Scgh.Issue, {
-  // url: "/api/v2/json/issues/list/suvajitgupta/Tasks/open",
-  // container: 'issues'
-// });
-
 Scgh.PROJECTS_QUERY = SC.Query.local(Scgh.Project, {
   url: "/api/v2/json/repos/show/joshholt",
   container: 'repositories'
 });
-
-Scgh.REMOTE_SERVER = "http://codeismyart.no.de/_proxy/%@";
 
 Scgh.GhDataSource = SC.DataSource.extend(
 /** @scope Scgh.GhDataSource.prototype */ {

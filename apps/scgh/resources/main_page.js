@@ -22,7 +22,22 @@ Scgh.mainPage = SC.Page.design({
           contentBinding: 'Scgh.projectsController.arrangedObjects',
           selectionBinding: 'Scgh.projectsController.selection',
           contentValueKey: 'name',
-          contentUnreadCountKey: 'open_issues'
+          contentUnreadCountKey: 'open_issues',
+
+          keyDown: function(evt) {
+            if(evt.keyCode !== 39) {
+              sc_super();
+            }
+            else {
+              SC.RunLoop.begin();
+              Scgh.issuesController.selectObject(Scgh.issuesController.get('firstObject'));
+              var nr =  Scgh.getPath('mainPage.issuesList');
+              if (nr) nr.becomeFirstResponder();
+              SC.RunLoop.end();
+              return YES;
+            }
+            return NO;
+          }
         })
       })
 
@@ -37,7 +52,22 @@ Scgh.mainPage = SC.Page.design({
         contentView: SC.ListView.extend(SC.ContentDisplay,{
           contentBinding: 'Scgh.issuesController.arrangedObjects',
           selectionBinding: 'Scgh.issuesController.selection',
-          contentValueKey: 'title'
+          contentValueKey: 'title',
+
+          keyDown: function(evt) {
+            console.log(evt.keyCode);
+            if(evt.keyCode !== 37) {
+              sc_super();
+            }
+            else {
+              SC.RunLoop.begin();
+              var nr =  Scgh.getPath('mainPage.repoList');
+              if (nr) nr.becomeFirstResponder();
+              SC.RunLoop.end();
+              return YES;
+            }
+            return NO;
+          }
         })
       }),
 
@@ -49,6 +79,9 @@ Scgh.mainPage = SC.Page.design({
       })
 
     })
-  })
+  }),
+
+  repoList: SC.outlet('mainPane.repoSection.repoList.contentView'),
+  issuesList: SC.outlet('mainPane.issuesSection.issuesList.contentView')
 
 });
