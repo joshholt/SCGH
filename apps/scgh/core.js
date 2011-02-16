@@ -2,7 +2,7 @@
 // Project:   Scgh
 // Copyright: ©2011 My Company, Inc.
 // ==========================================================================
-/*globals Scgh */
+/*globals Scgh Ki*/
 
 /** @namespace
 
@@ -10,18 +10,55 @@
   
   @extends SC.Object
 */
-Scgh = SC.Application.create(
+Scgh = SC.Application.create(Ki.StatechartManager,
   /** @scope Scgh.prototype */ {
 
   NAMESPACE: 'Scgh',
   VERSION: '0.1.0',
 
-  // This is your application store.  You will use this store to access all
-  // of your model data.  You can also set a data source on this store to
-  // connect to a backend server.  The default setup below connects the store
-  // to any fixtures you define.
-  store: SC.Store.create().from('Scgh.GhDataSource')
-  
-  // TODO: Add global constants or singleton objects needed by your app here.
+  store: SC.Store.create().from('Scgh.GhDataSource'),
 
-}) ;
+  rootState: Ki.State.design({
+
+    initialSubstate: 'defaultState',
+
+    defaultState: Ki.State.design({
+
+      enterState: function() {
+        this._view = Scgh.getPath('mainPage.repoList');
+        if (this._view) {
+          this._view.becomeFirstResponder();
+        }
+      },
+
+      exitState:  function() {},
+
+      changeFocus: function(){
+        var sel = Scgh.issueController.get('content');
+        if (!sel) {
+          Scgh.issuesController.selectObject(Scgh.issuesController.get('firstObject'));
+        }
+        this.gotoState('issueFocusedSate');
+      }
+
+    }),
+
+    issueFocusedSate: Ki.State.design({
+
+      enterState: function() {
+        var view = Scgh.getPath('mainPage.issuesList');
+        if (view) {
+          view.becomeFirstResponder();
+        }
+      },
+
+      exitState:  function() {},
+
+      changeFocus: function() {
+        this.gotoState('defaultState');
+      }
+    })
+
+  })
+
+});

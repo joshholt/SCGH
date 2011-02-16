@@ -6,12 +6,12 @@
 
 Scgh.main = function main() {
 
-  Scgh.getPath('mainPage.mainPane').append() ;
-
-  var projects = Scgh.store.find(Scgh.PROJECTS_QUERY);
-
-  Scgh.projectsController.set('content', projects);
-
+  SC.RootResponder.responder.set('defaultResponder', Scgh);
+  Scgh.getPath('mainPage.mainPane').append();
+  Scgh.projectsController.set('content',Scgh.store.find(Scgh.PROJECTS_QUERY));
+  Scgh.initStatechart();
 };
 
-function main() { Scgh.main(); }
+function main() { 
+  Scgh.main(); 
+}
