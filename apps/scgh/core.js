@@ -18,6 +18,13 @@ Scgh = SC.Application.create(Ki.StatechartManager,
 
   store: SC.Store.create().from('Scgh.GhDataSource'),
 
+  /**
+   * Now that Ki auto-inits the statechart by default
+   * we need to turn it off when mixing into the 
+   * Application Object
+   */
+  autoInitStatechart: false,
+
   rootState: Ki.State.design({
 
     initialSubstate: 'defaultState',
