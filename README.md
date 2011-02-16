@@ -11,11 +11,12 @@ Also try out the key-bindings (left/right arrow keys, not much really)
 # Instructions
 
 1. `(sudo) gem install bundler`
-1. `git clone git://github.com/joshholt/SCGH.git scgh`
-2. `cd scgh && bundle install && bundle install --binstubs`
-3. `./bin/sc-server`
-4. Open your browser (Webkit or Firefox) 
-5. visit [Tasks (for GitHub)](http://localhost:4020/scgh)
+2. `git clone git://github.com/joshholt/SCGH.git scgh`
+3. `git submodule update --init`
+4. `cd scgh && bundle install && bundle install --binstubs`
+5. `./bin/sc-server`
+6. Open your browser (Webkit or Firefox) 
+7. visit [Tasks (for GitHub)](http://localhost:4020/scgh)
 
 # TODO
 
