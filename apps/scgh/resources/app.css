@@ -1,0 +1,11 @@
+.source-list { border-right: 1px solid #979797; background-color: #DADFE6; }
+.scgh-list-item.sel {
+  border-top: 1px solid #5B93CF !important;
+  background: -moz-linear-gradient(100% 100% 90deg, #2B6BB8, #73A5DB) !important;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#73A5DB), to(#2B6BB8)) !important;
+}
+.scgh-list-item.sel.inactive {
+  border-top: 1px solid #A3B0CB !important;
+  background: -moz-linear-gradient(100% 100% 90deg, #8698B7, #B1BED7) !important;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#B1BED7), to(#8698B7)) !important;
+}
