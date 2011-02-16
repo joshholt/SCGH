@@ -4,7 +4,7 @@
 # ===========================================================================
 
 # Add initial buildfile information here
-config :all, :required => :sproutcore, :theme => :'sproutcore/ace'
+config :all, :required => [:sproutcore, :ki], :theme => :'sproutcore/ace'
 
 local_proxy_to = "github.com"
 
