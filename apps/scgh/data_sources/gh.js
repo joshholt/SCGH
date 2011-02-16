@@ -15,7 +15,7 @@ sc_require('models/issue');
 sc_require('models/project');
 
 Scgh.PROJECTS_QUERY = SC.Query.local(Scgh.Project, {
-  url: "/api/v2/json/repos/show/joshholt",
+  url: "/api/v2/json/repos/show/sproutcore",
   container: 'repositories'
 });
 
